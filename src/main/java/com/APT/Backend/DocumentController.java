@@ -1,8 +1,6 @@
-package Web;
+package com.APT.Backend;
 
-import Model.DocumentInfo;
-import Repositories.DocumentRepository;
-import Services.DocumentService;
+import com.APT.Backend.DocumentInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

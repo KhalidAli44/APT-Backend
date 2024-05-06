@@ -1,12 +1,7 @@
-package Services;
+package com.APT.Backend;
 
-import Model.DocumentInfo;
-import Model.UserInfo;
-import Repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
 
 @Service
 public class DocumentService {
