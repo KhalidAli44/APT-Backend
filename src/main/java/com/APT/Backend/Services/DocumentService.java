@@ -5,6 +5,8 @@ import com.APT.Backend.Repositories.DocumentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class DocumentService {
     @Autowired
@@ -12,6 +14,10 @@ public class DocumentService {
 
     public DocumentInfo save(DocumentInfo documentInfo) {
         return documentRepository.save(documentInfo);
+    }
+
+    public List<DocumentInfo> getDocumentsByAuthor(String author) {
+        return documentRepository.findByAuthor(author);
     }
 
 }

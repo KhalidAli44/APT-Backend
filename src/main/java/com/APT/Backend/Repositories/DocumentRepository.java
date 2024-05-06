@@ -3,7 +3,9 @@ package com.APT.Backend.Repositories;
 import com.APT.Backend.Model.DocumentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
+import java.util.List;
+
 public interface DocumentRepository extends MongoRepository<DocumentInfo, String> {
-    // You can define custom query methods here if needed
+    List<DocumentInfo> findByAuthor(String author);
 }
 
