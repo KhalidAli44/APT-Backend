@@ -1,5 +1,7 @@
-package com.APT.Backend;
+package com.APT.Backend.Services;
 
+import com.APT.Backend.Repositories.UserRepository;
+import com.APT.Backend.Model.UserInfo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

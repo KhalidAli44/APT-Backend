@@ -1,6 +1,6 @@
-package com.APT.Backend;
+package com.APT.Backend.Repositories;
 
-import com.APT.Backend.DocumentInfo;
+import com.APT.Backend.Model.DocumentInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface DocumentRepository extends MongoRepository<DocumentInfo, String> {

@@ -1,5 +1,7 @@
-package com.APT.Backend;
+package com.APT.Backend.Web;
 
+import com.APT.Backend.Model.UserInfo;
+import com.APT.Backend.Services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
