@@ -1,5 +1,6 @@
-package com.APT.Backend;
+package Repositories;
 
+import Model.UserInfo;
 import org.springframework.data.mongodb.repository.MongoRepository;
 
 public interface UserRepository extends MongoRepository<UserInfo, String> {

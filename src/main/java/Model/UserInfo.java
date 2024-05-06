@@ -1,4 +1,4 @@
-package com.APT.Backend;
+package Model;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
