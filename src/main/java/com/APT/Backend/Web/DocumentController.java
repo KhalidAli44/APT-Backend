@@ -24,11 +24,11 @@ public class DocumentController {
 
     @GetMapping("/{author}")
     public ResponseEntity<List<DocumentInfo>> getDocumentsByAuthor(@PathVariable String author) {
-        List<DocumentInfo> documents = documentService.getDocumentsByAuthor("Khalid");
+        List<DocumentInfo> documents = documentService.getDocumentsByAuthor(author);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
 
-    @GetMapping("")
+    @GetMapping
     public String test() {
         return "Test";
     }
