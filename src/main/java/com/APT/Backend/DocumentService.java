@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DocumentService {
     @Autowired
-    private DocumentService documentRepository;
+    private DocumentRepository documentRepository;
 
     public DocumentInfo save(DocumentInfo documentInfo) {
         return documentRepository.save(documentInfo);
