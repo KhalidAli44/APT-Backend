@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class SharedService {
@@ -22,6 +23,14 @@ public class SharedService {
 
     public List<SharedInfo> getSharedByDocumentId(String documentId) {
         return sharedRepository.findByDocumentId(documentId);
+    }
+
+    public Optional<SharedInfo> getSharedDocumentById(String id) {
+        return sharedRepository.findById(id);
+    }
+
+    public SharedInfo saveSharedDocument(SharedInfo sharedInfo) {
+        return sharedRepository.save(sharedInfo);
     }
 
 }

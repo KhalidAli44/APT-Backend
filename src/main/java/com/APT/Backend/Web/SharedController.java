@@ -55,5 +55,22 @@ public class SharedController {
         List<SharedInfo> sharedInfoList = sharedService.getSharedByDocumentId(documentId);
         return new ResponseEntity<>(sharedInfoList, HttpStatus.OK);
     }
+
+    @PutMapping("/permissions/{id}")
+    public ResponseEntity<SharedInfo> updateSharedDocument(@PathVariable String id, @RequestBody SharedInfo updatedSharedInfo) {
+        Optional<SharedInfo> existingSharedInfoOptional = sharedService.getSharedDocumentById(id);
+
+        if (existingSharedInfoOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }   
+
+        SharedInfo existingSharedInfo = existingSharedInfoOptional.get();
+
+        existingSharedInfo.setCanEdit(updatedSharedInfo.isCanEdit());
+
+        SharedInfo savedSharedInfo = sharedService.saveSharedDocument(existingSharedInfo);
+
+        return ResponseEntity.ok(savedSharedInfo);
+    }
 }
 
