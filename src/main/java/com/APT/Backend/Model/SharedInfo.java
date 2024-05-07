@@ -10,6 +10,7 @@ public class SharedInfo {
     private String id;
     private String username;
     private String documentId;
+    private boolean canEdit;
 
     public SharedInfo() {
     }
@@ -36,6 +37,14 @@ public class SharedInfo {
 
     public void setDocumentId(String documentId) {
         this.documentId = documentId;
+    }
+
+    public boolean isCanEdit() {
+        return canEdit;
+    }
+
+    public void setCanEdit(boolean canEdit) {
+        this.canEdit = canEdit;
     }
 }
 
