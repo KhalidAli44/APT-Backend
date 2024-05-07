@@ -7,5 +7,6 @@ import java.util.List;
 
 public interface SharedRepository extends MongoRepository<SharedInfo, String> {
     List<SharedInfo> findByUsername(String username);
+    List<SharedInfo> findByDocumentId(String documentId);
 }
 

@@ -40,8 +40,6 @@ public class SharedController {
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
 
-
-
     @PostMapping
     public ResponseEntity<SharedInfo> shareDocument(@RequestBody SharedInfo sharedInfo) {
         try {
@@ -50,6 +48,12 @@ public class SharedController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
+    }
+
+    @GetMapping("/sent-to/{documentId}")
+    public ResponseEntity<List<SharedInfo>> getSharedByDocumentId(@PathVariable String documentId) {
+        List<SharedInfo> sharedInfoList = sharedService.getSharedByDocumentId(documentId);
+        return new ResponseEntity<>(sharedInfoList, HttpStatus.OK);
     }
 }
 

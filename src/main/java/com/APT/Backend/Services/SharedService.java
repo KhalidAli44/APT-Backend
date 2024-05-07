@@ -20,4 +20,8 @@ public class SharedService {
         return sharedRepository.findByUsername(username);
     }
 
+    public List<SharedInfo> getSharedByDocumentId(String documentId) {
+        return sharedRepository.findByDocumentId(documentId);
+    }
+
 }
