@@ -24,21 +24,23 @@ public class SharedController {
     private DocumentService documentService;
 
     @GetMapping("/{username}")
-    public ResponseEntity<List<Optional<DocumentInfo>>> getSharedByUsername(@PathVariable String username) {
+    public ResponseEntity<List<DocumentInfo>> getSharedByUsername(@PathVariable String username) {
         List<SharedInfo> shared = sharedService.getSharedByUsername(username);
 
-        List<Optional<DocumentInfo>> documents = new ArrayList<>();
+        List<DocumentInfo> documents = new ArrayList<>();
 
         for (SharedInfo sharedInfo : shared) {
             String documentId = sharedInfo.getDocumentId();
 
             Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
 
-            documents.add(documentInfo);
+            documentInfo.ifPresent(documents::add);
         }
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
+
+
 
     @PostMapping
     public ResponseEntity<SharedInfo> shareDocument(@RequestBody SharedInfo sharedInfo) {
