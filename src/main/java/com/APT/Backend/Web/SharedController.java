@@ -39,5 +39,15 @@ public class SharedController {
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
+
+    @PostMapping
+    public ResponseEntity<SharedInfo> shareDocument(@RequestBody SharedInfo sharedInfo) {
+        try {
+            SharedInfo savedSharedInfo = sharedService.save(sharedInfo);
+            return ResponseEntity.ok(savedSharedInfo);
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
 }
 
