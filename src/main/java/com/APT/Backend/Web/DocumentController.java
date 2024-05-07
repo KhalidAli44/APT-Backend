@@ -27,10 +27,5 @@ public class DocumentController {
         List<DocumentInfo> documents = documentService.getDocumentsByAuthor(author);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
-
-    @GetMapping
-    public String test() {
-        return "Test";
-    }
 }
 

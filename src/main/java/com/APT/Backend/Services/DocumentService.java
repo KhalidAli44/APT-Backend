@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DocumentService {
@@ -19,5 +20,7 @@ public class DocumentService {
     public List<DocumentInfo> getDocumentsByAuthor(String author) {
         return documentRepository.findByAuthor(author);
     }
+
+    public Optional<DocumentInfo> getDocumentById(String id) { return documentRepository.findById(id); }
 
 }
