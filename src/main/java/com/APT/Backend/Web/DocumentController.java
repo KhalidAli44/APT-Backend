@@ -27,5 +27,15 @@ public class DocumentController {
         List<DocumentInfo> documents = documentService.getDocumentsByAuthor(author);
         return new ResponseEntity<>(documents, HttpStatus.OK);
     }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<?> deleteDocument(@PathVariable String id) {
+        try {
+            documentService.deleteDocument(id);
+            return ResponseEntity.ok().build();
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting document");
+        }
+    }
 }
 

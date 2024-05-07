@@ -23,4 +23,8 @@ public class DocumentService {
 
     public Optional<DocumentInfo> getDocumentById(String id) { return documentRepository.findById(id); }
 
+    public void deleteDocument(String id) {
+        documentRepository.deleteById(id);
+    }
+
 }
