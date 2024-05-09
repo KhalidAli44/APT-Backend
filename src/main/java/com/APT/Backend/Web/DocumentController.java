@@ -8,6 +8,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/documents")
@@ -36,6 +37,23 @@ public class DocumentController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error deleting document");
         }
+    }
+
+    @PutMapping("/rename/{id}")
+    public ResponseEntity<DocumentInfo> renameDocument(@PathVariable String id, @RequestBody DocumentInfo updatedDocumentInfo) {
+        Optional<DocumentInfo> existingDocumentOptional = documentService.getDocumentById(id);
+
+        if (existingDocumentOptional.isEmpty()) {
+            return ResponseEntity.notFound().build();
+        }
+
+        DocumentInfo existingDocument = existingDocumentOptional.get();
+
+        existingDocument.setFilename(updatedDocumentInfo.getFilename());
+
+        DocumentInfo savedDocument = documentService.save(existingDocument);
+
+        return ResponseEntity.ok(savedDocument);
     }
 }
 
