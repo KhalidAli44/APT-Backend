@@ -30,11 +30,13 @@ public class SharedController {
         List<DocumentInfo> documents = new ArrayList<>();
 
         for (SharedInfo sharedInfo : shared) {
+            if (sharedInfo.isCanEdit()) {
                 String documentId = sharedInfo.getDocumentId();
 
                 Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
 
                 documentInfo.ifPresent(documents::add);
+            }
         }
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
@@ -47,11 +49,13 @@ public class SharedController {
         List<DocumentInfo> documents = new ArrayList<>();
 
         for (SharedInfo sharedInfo : shared) {
+            if (!sharedInfo.isCanEdit()) {
                 String documentId = sharedInfo.getDocumentId();
 
                 Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
 
                 documentInfo.ifPresent(documents::add);
+            }
         }
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
