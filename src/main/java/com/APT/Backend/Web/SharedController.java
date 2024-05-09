@@ -23,18 +23,39 @@ public class SharedController {
     @Autowired
     private DocumentService documentService;
 
-    @GetMapping("/{username}")
-    public ResponseEntity<List<DocumentInfo>> getSharedByUsername(@PathVariable String username) {
+    @GetMapping("/enabled/{username}")
+    public ResponseEntity<List<DocumentInfo>> getEnabledSharedByUsername(@PathVariable String username) {
         List<SharedInfo> shared = sharedService.getSharedByUsername(username);
 
         List<DocumentInfo> documents = new ArrayList<>();
 
         for (SharedInfo sharedInfo : shared) {
-            String documentId = sharedInfo.getDocumentId();
+            if (sharedInfo.isCanEdit()) {
+                String documentId = sharedInfo.getDocumentId();
 
-            Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
+                Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
 
-            documentInfo.ifPresent(documents::add);
+                documentInfo.ifPresent(documents::add);
+            }
+        }
+
+        return new ResponseEntity<>(documents, HttpStatus.OK);
+    }
+
+    @GetMapping("/disabled/{username}")
+    public ResponseEntity<List<DocumentInfo>> getDisabledSharedByUsername(@PathVariable String username) {
+        List<SharedInfo> shared = sharedService.getSharedByUsername(username);
+
+        List<DocumentInfo> documents = new ArrayList<>();
+
+        for (SharedInfo sharedInfo : shared) {
+            if (!sharedInfo.isCanEdit()) {
+                String documentId = sharedInfo.getDocumentId();
+
+                Optional<DocumentInfo> documentInfo = documentService.getDocumentById(documentId);
+
+                documentInfo.ifPresent(documents::add);
+            }
         }
 
         return new ResponseEntity<>(documents, HttpStatus.OK);
@@ -62,7 +83,7 @@ public class SharedController {
 
         if (existingSharedInfoOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
-        }   
+        }
 
         SharedInfo existingSharedInfo = existingSharedInfoOptional.get();
 
