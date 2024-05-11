@@ -1,6 +1,7 @@
 package com.APT.Backend.Web;
 
 import com.APT.Backend.Model.DocumentInfo;
+import com.APT.Backend.Model.SharedInfo;
 import com.APT.Backend.Services.DocumentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -54,6 +55,19 @@ public class DocumentController {
         DocumentInfo savedDocument = documentService.save(existingDocument);
 
         return ResponseEntity.ok(savedDocument);
+    }
+
+    @PutMapping("/update/{id}")
+    public ResponseEntity<DocumentInfo> updateDocumentContent(@PathVariable String id, @RequestBody DocumentInfo updatedDocumentInfo) {
+        Optional<DocumentInfo> documentOptional = documentService.findById(id);
+        if (documentOptional.isPresent()) {
+            DocumentInfo existingDocument = documentOptional.get();
+            existingDocument.setContent(updatedDocumentInfo.getContent());
+            DocumentInfo savedDocument = documentService.save(existingDocument);
+            return ResponseEntity.ok(savedDocument);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
     }
 }
 
