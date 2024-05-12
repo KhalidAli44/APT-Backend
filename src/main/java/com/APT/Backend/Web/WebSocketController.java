@@ -11,6 +11,6 @@ public class WebSocketController {
     @MessageMapping("/operation/{documentId}")
     @SendTo("/all/broadcast/{documentId}")
     public String passMessage(@DestinationVariable String documentId, String message) {
-        return "Hello, " + message;
+        return message;
     }
 }
