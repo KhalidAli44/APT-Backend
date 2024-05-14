@@ -52,6 +52,9 @@ public class WebSocketController {
         // You might want to process the queue here or elsewhere
 
         // You might also want to return something meaningful here
-        return "Message received and added to queue";
-    }
+
+            return message;
+        
+
+        }
 }
