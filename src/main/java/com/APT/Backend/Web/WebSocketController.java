@@ -23,17 +23,18 @@ public class WebSocketController {
 
     @MessageMapping("/operation/{documentId}")
     public void passMessage(final MessageInfo message) {
-        synchronized(mutex) {
-            if (lock == 0) {
-                lock = 1;
-            } else {
-                message.setInsertedChar("NOP");
-                messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
-            }
-        }
+//        synchronized(mutex) {
+//            if (lock == 0) {
+//                lock = 1;
+//            } else {
+//                message.setInsertedChar("NOP");
+//                messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+//            }
+//        }
+//        messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+//        synchronized(mutex) {
+//            lock = 0;
+//        }
         messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
-        synchronized(mutex) {
-            lock = 0;
-        }
     }
 }
