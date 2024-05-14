@@ -29,10 +29,10 @@ public class WebSocketController {
                 lock = 1;
             } else {
                 message.setInsertedChar("NOP");
-                messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+                messagingTemplate.convertAndSend("/all/broadcast/" + documentId, message);
             }
         }
-        messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+        messagingTemplate.convertAndSend("/all/broadcast/" + documentId, message);
         synchronized(mutex) {
             lock = 0;
         }
