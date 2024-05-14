@@ -40,21 +40,20 @@ public class WebSocketController {
     @SendTo("/all/broadcast/{documentId}")
     public String passMessage(final String message) {
         // Parse the message to extract insertedIndex, insertedChar, and timeStamp
-        String[] parts = message.split("[\\(\\),\\s]+");
-        int insertedIndex = Integer.parseInt(parts[1]);
-        char insertedChar = parts[2].charAt(0); // Assuming insertedChar is a single character
-        long timeStamp = Long.parseLong(parts[3]);
-
-        // Create a new MessageInfo object and add it to the queue
-        MessageInfo messageInfo = new MessageInfo(insertedIndex, insertedChar, timeStamp);
-        messageQueue.offer(messageInfo);
+//        String[] parts = message.split("[\\(\\),\\s]+");
+//        int insertedIndex = Integer.parseInt(parts[1]);
+//        char insertedChar = parts[2].charAt(0); // Assuming insertedChar is a single character
+//        long timeStamp = Long.parseLong(parts[3]);
+//
+//        // Create a new MessageInfo object and add it to the queue
+//        MessageInfo messageInfo = new MessageInfo(insertedIndex, insertedChar, timeStamp);
+//        messageQueue.offer(messageInfo);
 
         // You might want to process the queue here or elsewhere
 
         // You might also want to return something meaningful here
+        return message;
 
-            return message;
-        
 
         }
 }
