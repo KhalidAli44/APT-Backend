@@ -17,9 +17,23 @@ public class WebSocketController {
     @Autowired
     private SimpMessagingTemplate messagingTemplate;
 
+
+    private final Object mutex = new Object();
+    private int lock = 0;
+
     @MessageMapping("/operation/{documentId}")
-    @SendTo("/all/broadcast/{documentId}")
-    public MessageInfo passMessage(final MessageInfo message) {
-            return message;
+    public void passMessage(final MessageInfo message) {
+        synchronized(mutex) {
+            if (lock == 0) {
+                lock = 1;
+            } else {
+                message.setInsertedChar("NOP");
+                messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+            }
+        }
+        messagingTemplate.convertAndSend("/all/broadcast/{documentId}", message);
+        synchronized(mutex) {
+            lock = 0;
+        }
     }
 }
