@@ -7,6 +7,8 @@ import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 
 import java.util.PriorityQueue;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 @Controller
 public class WebSocketController {
@@ -39,21 +41,29 @@ public class WebSocketController {
     @MessageMapping("/operation/{documentId}")
     @SendTo("/all/broadcast/{documentId}")
     public String passMessage(final String message) {
-        // Parse the message to extract insertedIndex, insertedChar, and timeStamp
-//        String[] parts = message.split("[\\(\\),\\s]+");
-//        int insertedIndex = Integer.parseInt(parts[1]);
-//        char insertedChar = parts[2].charAt(0); // Assuming insertedChar is a single character
-//        long timeStamp = Long.parseLong(parts[3]);
-//
-//        // Create a new MessageInfo object and add it to the queue
-//        MessageInfo messageInfo = new MessageInfo(insertedIndex, insertedChar, timeStamp);
-//        messageQueue.offer(messageInfo);
+        try {
+            // Parse the message to extract insertedIndex, insertedChar, and timeStamp
+            String[] parts = message.split("[\\(\\),\\s]+");
+            int insertedIndex = Integer.parseInt(parts[1]);
+            char insertedChar = parts[2].charAt(0); // Assuming insertedChar is a single character
+            long timeStamp = Long.parseLong(parts[3]);
 
-        // You might want to process the queue here or elsewhere
+            // Create a new MessageInfo object and add it to the queue
+            MessageInfo messageInfo = new MessageInfo(insertedIndex, insertedChar, timeStamp);
+            messageQueue.offer(messageInfo);
 
-        // You might also want to return something meaningful here
-        return message;
+            // Log the received message
+            Logger.getLogger(WebSocketController.class.getName()).log(Level.INFO, "Received message: " + message);
 
+            // You might want to process the queue here or elsewhere
 
+            // You might also want to return something meaningful here
+            return message;
+        } catch (Exception ex) {
+            // Log any exceptions that occur during message processing
+            Logger.getLogger(WebSocketController.class.getName()).log(Level.SEVERE, "Error processing message: " + message, ex);
+            // Return an error message or handle the exception as appropriate
+            return message;
         }
+    }
 }
