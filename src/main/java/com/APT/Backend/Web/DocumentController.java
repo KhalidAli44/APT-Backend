@@ -24,6 +24,18 @@ public class DocumentController {
         return new ResponseEntity<>(createdDocument, HttpStatus.CREATED);
     }
 
+    @GetMapping("/{documentId}")
+    public ResponseEntity<String> getDocumentContentById(@PathVariable String documentId) {
+        Optional<DocumentInfo> documentOptional = documentService.findById(documentId);
+
+        if (documentOptional.isPresent()) {
+            String content = documentOptional.get().getContent();
+            return ResponseEntity.ok(content);
+        } else {
+            return ResponseEntity.notFound().build();
+        }
+    }
+
     @GetMapping("/{author}")
     public ResponseEntity<List<DocumentInfo>> getDocumentsByAuthor(@PathVariable String author) {
         List<DocumentInfo> documents = documentService.getDocumentsByAuthor(author);
