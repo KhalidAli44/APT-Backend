@@ -28,8 +28,7 @@ public class WebSocketController {
             if (lock == 0) {
                 lock = 1;
             } else {
-                message.setInsertedChar("NOP");
-                messagingTemplate.convertAndSend("/all/broadcast/" + documentId, message);
+                return;
             }
         }
         messagingTemplate.convertAndSend("/all/broadcast/" + documentId, message);
