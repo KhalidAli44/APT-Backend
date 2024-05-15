@@ -24,7 +24,7 @@ public class DocumentController {
         return new ResponseEntity<>(createdDocument, HttpStatus.CREATED);
     }
 
-    @GetMapping("/{documentId}")
+    @GetMapping("/content/{documentId}")
     public ResponseEntity<String> getDocumentContentById(@PathVariable String documentId) {
         Optional<DocumentInfo> documentOptional = documentService.findById(documentId);
 
